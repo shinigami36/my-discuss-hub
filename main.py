@@ -1,11 +1,11 @@
 from fastapi import FastAPI
+from database import init_db
 from routers import users, discussions, comments
-from database import engine, Base
 
 app = FastAPI()
 
-# Create the database tables
-Base.metadata.create_all(bind=engine)
+# Initialize the database
+init_db()
 
 app.include_router(users.router)
 app.include_router(discussions.router)

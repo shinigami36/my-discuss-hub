@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from database import Base
 import datetime
 
+# Many-to-many relationship table for following users
 user_follow = Table(
     'user_follow', Base.metadata,
     Column('follower_id', Integer, ForeignKey('users.id')),
@@ -23,7 +24,8 @@ class User(Base):
         primaryjoin=id==user_follow.c.follower_id,
         secondaryjoin=id==user_follow.c.followed_id
     )
-    
+    discussions = relationship("Discussion", back_populates="user")
+
 class Discussion(Base):
     __tablename__ = 'discussions'
     
